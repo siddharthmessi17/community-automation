@@ -58,7 +58,8 @@ echo "setup Docker registry image pull secrets exit"
 
 echo "Doing operator-openshift.yaml"
 cat $rootPath/operator-openshift.yaml | sed 's#image: rook/ceph#image: docker-na-public.artifactory.swg-devops.com/sec-guardium-next-gen-dockerhub-docker-remote/rook/ceph#' > /tmp/operator-openshift.yaml
-oc create -f /tmp/operator-openshift.yaml
+cat /tmp/operator-openshift.yaml
+oc create -f /tmp/operator-openshift.yaml 
 echo "operator-openshift.yaml exit $?"
 sleep_count=30
 while [[ $sleep_count -gt 0 ]]; do
@@ -81,6 +82,7 @@ echo "Exit from deviceFilter $?"
 echo "Patching cluster.yaml"
 cat $rootPath/cluster.yaml | sed 's#image: ceph/ceph#image: docker-na-public.artifactory.swg-devops.com/sec-guardium-next-gen-dockerhub-docker-remote/ceph/ceph#' > /tmp/cluster.yaml
 echo "Doing cluster.yaml create"
+cat /tmp/cluster.yaml
 oc create -f /tmp/cluster.yaml
 echo "Exit from cluster.yaml $?"
 
